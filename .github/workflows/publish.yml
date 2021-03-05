@@ -37,7 +37,8 @@ jobs:
       run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_KEY}} --skip-duplicate
 
     - name: Create a release
-      uses: actions/create-release@v1
+      uses: ncipollo/release-action@v1.7.3
       with:
-        tag_name: v${{ steps.getversion.outputs.VERSION }}
-        release_name: v${{ steps.getversion.outputs.VERSION }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: v${{ steps.getversion.outputs.VERSION }}
+        name: v${{ steps.getversion.outputs.VERSION }}
