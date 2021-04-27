@@ -5,7 +5,9 @@ namespace Kei.EventSourcing
 {
     public interface IEventStore
     {
-        List<Event> Get(Guid aggregateId);
+        IEnumerable<Event> Get(Guid aggregateId);
+
+        IEnumerable<Event> GetAll(params Type[] eventType);
 
         void Save(Event @event);
     }

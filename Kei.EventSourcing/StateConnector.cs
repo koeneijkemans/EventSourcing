@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Kei.EventSourcing
@@ -26,7 +27,8 @@ namespace Kei.EventSourcing
         public T Get<T>(Guid aggregateRootId) where T : AggregateRoot, new()
         {
             T root = null;
-            var allEvents = _store.Get(aggregateRootId);
+            var allEvents = _store.Get(aggregateRootId)
+                .ToList();
 
             if (allEvents.Any())
             {
@@ -36,6 +38,33 @@ namespace Kei.EventSourcing
             }
 
             return root;
+        }
+
+        /// <summary>
+        /// Gets all events by type.
+        /// </summary>
+        /// <typeparam name="T">The type of the <see cref="AggregateRoot" /> to retrieve.</typeparam>
+        /// <param name="eventType">List of event types to retrieve.</param>
+        /// <returns>Projection of <see cref="AggregateRoot" /> objects constructed with the given event types.</returns>
+        public List<T> GetAll<T>(params Type[] eventType)
+            where T : AggregateRoot, new()
+        {
+            List<T> roots = new List<T>();
+            var allEvents = _store.GetAll(eventType);
+
+            if (allEvents.Any())
+            {
+                var groupedEvents = allEvents.GroupBy(e => e.AggregateRootId);
+
+                foreach (var group in groupedEvents)
+                {
+                    T root = new T();
+                    root.FromHistory(group.ToList());
+                    roots.Add(root);
+                }
+            }
+
+            return roots;
         }
 
         /// <summary>

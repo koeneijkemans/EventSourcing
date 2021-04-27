@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Koen Eijkemans</Authors>
     <Company>Koen Eijkemans</Company>
-    <Version>0.0.1</Version>
+    <Version>0.2</Version>
     <Description>Core of the Event Sourcing framework by Koen Eijkemans</Description>
   </PropertyGroup>
 

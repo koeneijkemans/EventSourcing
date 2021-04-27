@@ -22,7 +22,14 @@ namespace Kei.EventSourcing
         /// </summary>
         /// <param name="aggregateId">The id of the <see cref="AggregateRoot" /> to get the events for</param>
         /// <returns>A list of events that belong to the given <see cref="AggregateRoot" /></returns>
-        public abstract List<Event> Get(Guid aggregateId);
+        public abstract IEnumerable<Event> Get(Guid aggregateId);
+
+        /// <summary>
+        /// Retrieve all events by event type
+        /// </summary>
+        /// <param name="eventTypes">The event types to retrieve</param>
+        /// <returns>List of events by types.</returns>
+        public abstract IEnumerable<Event> GetAll(params Type[] eventTypes);
 
         /// <summary>
         /// Saves the given event in the store.
