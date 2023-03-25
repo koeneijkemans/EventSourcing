@@ -7,8 +7,6 @@ namespace Kei.EventSourcing
     {
         IEnumerable<Event> Get(Guid aggregateId);
 
-        IEnumerable<Event> GetAll(params Type[] eventType);
-
         void Save(Event @event);
     }
 }

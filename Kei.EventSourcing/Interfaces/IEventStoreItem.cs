@@ -1,15 +1,14 @@
 ﻿using System;
 
-namespace Kei.EventSourcing
+namespace Kei.EventSourcing;
+
+public interface IEventStoreItem
 {
-    public interface IEventStoreItem
-    {
-        Guid AggregateId { get; set; }
+    Guid AggregateId { get; set; }
 
-        string EventType { get; set; }
+    string EventType { get; set; }
 
-        int Order { get; set; }
+    int Order { get; set; }
 
-        string Data { get; set; }
-    }
+    string Data { get; set; }
 }

@@ -1,6 +1,5 @@
-﻿namespace Kei.EventSourcing.UnitTests.Helpers
+﻿namespace Kei.EventSourcing.UnitTests.Helpers;
+
+public class OtherFakeEvent : Event
 {
-    public class OtherFakeEvent : Event
-    {
-    }
 }

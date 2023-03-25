@@ -1,6 +1,5 @@
-﻿namespace Kei.EventSourcing.UnitTests.Helpers
+﻿namespace Kei.EventSourcing.UnitTests.Helpers;
+
+public class FakeCommand : Command
 {
-    public class FakeCommand : Command
-    {
-    }
 }

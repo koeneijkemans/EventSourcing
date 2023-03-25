@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31025.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kei.EventSourcing", "Kei.EventSourcing\Kei.EventSourcing.csproj", "{47724EA5-2318-4EB1-BCD0-F2E0CD4229E0}"
 EndProject
@@ -14,6 +14,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		.github\workflows\publish.yml = .github\workflows\publish.yml
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kei.EventSourcing.Publisher.ServiceBus", "Kei.EventSourcing.EventBusPublisher\Kei.EventSourcing.Publisher.ServiceBus.csproj", "{5703830C-EACB-4D2C-BA80-6425AC50DF07}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kei.EventSourcing.Sandbox", "Kei.EventSourcing.Sandbox\Kei.EventSourcing.Sandbox.csproj", "{47709EE8-E481-4ECF-A3FE-6B6E27677AD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventPublishers", "EventPublishers", "{5B488E19-1563-4D10-A191-C226C6CCC536}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventStores", "EventStores", "{2EBF7D20-2D49-4286-A19B-0E0FCBBE96CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kei.EventSourcing.Store.AzureTable", "Kei.EventSourcing.Store.AzureTable\Kei.EventSourcing.Store.AzureTable.csproj", "{11F37579-524E-4A27-B720-F2441DEE1ABD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kei.EventSourcing.Publisher.ServiceBus.ServiceCollection", "Kei.EventSourcing.Publisher.ServiceBus.ServiceCollection\Kei.EventSourcing.Publisher.ServiceBus.ServiceCollection.csproj", "{B77F6AD1-BA57-4D1C-9146-E2DB6D58E12E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,9 +41,30 @@ Global
 		{B665D1EA-8B6C-4FD0-BE09-BB32D53A0974}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B665D1EA-8B6C-4FD0-BE09-BB32D53A0974}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B665D1EA-8B6C-4FD0-BE09-BB32D53A0974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5703830C-EACB-4D2C-BA80-6425AC50DF07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5703830C-EACB-4D2C-BA80-6425AC50DF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5703830C-EACB-4D2C-BA80-6425AC50DF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5703830C-EACB-4D2C-BA80-6425AC50DF07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47709EE8-E481-4ECF-A3FE-6B6E27677AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47709EE8-E481-4ECF-A3FE-6B6E27677AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47709EE8-E481-4ECF-A3FE-6B6E27677AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47709EE8-E481-4ECF-A3FE-6B6E27677AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11F37579-524E-4A27-B720-F2441DEE1ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11F37579-524E-4A27-B720-F2441DEE1ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11F37579-524E-4A27-B720-F2441DEE1ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11F37579-524E-4A27-B720-F2441DEE1ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B77F6AD1-BA57-4D1C-9146-E2DB6D58E12E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B77F6AD1-BA57-4D1C-9146-E2DB6D58E12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B77F6AD1-BA57-4D1C-9146-E2DB6D58E12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B77F6AD1-BA57-4D1C-9146-E2DB6D58E12E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5703830C-EACB-4D2C-BA80-6425AC50DF07} = {5B488E19-1563-4D10-A191-C226C6CCC536}
+		{11F37579-524E-4A27-B720-F2441DEE1ABD} = {2EBF7D20-2D49-4286-A19B-0E0FCBBE96CC}
+		{B77F6AD1-BA57-4D1C-9146-E2DB6D58E12E} = {5B488E19-1563-4D10-A191-C226C6CCC536}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3804D495-25B1-42A0-B6AE-F4FBF424386E}

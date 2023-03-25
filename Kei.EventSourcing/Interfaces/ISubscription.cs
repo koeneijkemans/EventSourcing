@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Kei.EventSourcing
+namespace Kei.EventSourcing;
+
+public interface IEventSubscription
 {
-    public interface ISubscription
-    {
-        ISubscription Subscribe(Type eventType, Action<Event> @action);
-    }
+    IEventSubscription Subscribe(Type eventType, Action<Event> @action);
 }
