@@ -4,13 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Koen Eijkemans</Authors>
     <Company>Koen Eijkemans</Company>
-    <Version>0.2</Version>
+    <Version>0.3.1</Version>
     <Description>Core of the Event Sourcing framework by Koen Eijkemans</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

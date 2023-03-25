@@ -1,7 +1,6 @@
-﻿namespace Kei.EventSourcing
+﻿namespace Kei.EventSourcing;
+
+public interface ICommandHandler<T> where T : Command
 {
-    public interface ICommandHandler<T> where T : Command
-    {
-        void Handle(T command);
-    }
+    void Handle(T command);
 }

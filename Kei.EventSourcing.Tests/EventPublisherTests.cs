@@ -1,108 +1,108 @@
 ﻿using FluentAssertions;
 using Kei.EventSourcing.UnitTests.Helpers;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
-namespace Kei.EventSourcing.UnitTests
+namespace Kei.EventSourcing.UnitTests;
+
+public class EventPublisherTests
 {
-    public class EventPublisherTests
+    [Fact]
+    public async Task SubscribedOneEvent_EventPublished_ActionInvoked()
     {
-        [Fact]
-        public void SubscribedOneEvent_EventPublished_ActionInvoked()
-        {
-            // Arrange
-            var publisher = new EventPublisher();
-            var testEvent = new FakeEvent();
-            Event publishedEvent = null;
+        // Arrange
+        var publisher = new MemoryEventPublisher();
+        var testEvent = new FakeEvent();
+        Event publishedEvent = null;
 
-            publisher.Subscribe(typeof(FakeEvent), (Event @event) => { publishedEvent = @event; });
+        publisher.Subscribe(typeof(FakeEvent), (Event @event) => { publishedEvent = @event; });
 
-            // Act
-            publisher.Publish(testEvent);
+        // Act
+        await publisher.PublishAsync(testEvent);
 
-            // Assert
-            publishedEvent.Should().BeSameAs(testEvent).And.NotBeNull();
-        }
+        // Assert
+        publishedEvent.Should().BeSameAs(testEvent).And.NotBeNull();
+    }
 
-        [Fact]
-        public void SubscribedManyEventsOfSameType_EventPublished_ActionsInvoked()
-        {
-            // Arrange
-            var publisher = new EventPublisher();
-            var testEvent = new FakeEvent();
-            Event publishedEvent = null;
-            Event secondPublishedEvent = null;
+    [Fact]
+    public async Task SubscribedManyEventsOfSameType_EventPublished_ActionsInvoked()
+    {
+        // Arrange
+        var publisher = new MemoryEventPublisher();
+        var testEvent = new FakeEvent();
+        Event publishedEvent = null;
+        Event secondPublishedEvent = null;
 
-            publisher.Subscribe(typeof(FakeEvent), (Event @event) => { publishedEvent = @event; })
-                .Subscribe(typeof(FakeEvent), (Event @event) => { secondPublishedEvent = @event; });
+        publisher.Subscribe(typeof(FakeEvent), (Event @event) => { publishedEvent = @event; })
+            .Subscribe(typeof(FakeEvent), (Event @event) => { secondPublishedEvent = @event; });
 
-            // Act
-            publisher.Publish(testEvent);
+        // Act
+        await publisher.PublishAsync(testEvent);
 
-            // Assert
-            publishedEvent.Should().BeSameAs(testEvent).And.NotBeNull();
-            secondPublishedEvent.Should().BeSameAs(secondPublishedEvent).And.NotBeNull();
-        }
+        // Assert
+        publishedEvent.Should().BeSameAs(testEvent).And.NotBeNull();
+        secondPublishedEvent.Should().BeSameAs(secondPublishedEvent).And.NotBeNull();
+    }
 
-        [Fact]
-        public void SubscribedDifferentEventTypes_EventPublished_OnlyPublishedTypeInvoked()
-        {
-            // Arrange
-            var publisher = new EventPublisher();
-            var testEvent = new FakeEvent();
-            Event publishedEvent = null;
-            Event secondPublishedEvent = null;
+    [Fact]
+    public async Task SubscribedDifferentEventTypes_EventPublished_OnlyPublishedTypeInvoked()
+    {
+        // Arrange
+        var publisher = new MemoryEventPublisher();
+        var testEvent = new FakeEvent();
+        Event publishedEvent = null;
+        Event secondPublishedEvent = null;
 
-            publisher.Subscribe(typeof(FakeEvent), (Event @event) => { publishedEvent = @event; })
-                .Subscribe(typeof(OtherFakeEvent), (Event @event) => { secondPublishedEvent = @event; });
+        publisher.Subscribe(typeof(FakeEvent), (Event @event) => { publishedEvent = @event; })
+            .Subscribe(typeof(OtherFakeEvent), (Event @event) => { secondPublishedEvent = @event; });
 
-            // Act
-            publisher.Publish(testEvent);
+        // Act
+        await publisher.PublishAsync(testEvent);
 
-            // Assert
-            publishedEvent.Should().BeSameAs(testEvent).And.NotBeNull();
-            secondPublishedEvent.Should().BeNull();
-        }
+        // Assert
+        publishedEvent.Should().BeSameAs(testEvent).And.NotBeNull();
+        secondPublishedEvent.Should().BeNull();
+    }
 
-        [Fact]
-        public void NoSubscriptions_EventPublished_NoActionAndDoesNotThrow()
-        {
-            // Arrange
-            var publisher = new EventPublisher();
-            var testEvent = new FakeEvent();
-            Event publishedEvent = null;
-            
-            // Act
-            publisher.Publish(testEvent);
+    [Fact]
+    public async Task NoSubscriptions_EventPublished_NoActionAndDoesNotThrow()
+    {
+        // Arrange
+        var publisher = new MemoryEventPublisher();
+        var testEvent = new FakeEvent();
+        Event publishedEvent = null;
+        
+        // Act
+        await publisher.PublishAsync(testEvent);
 
-            // Assert
-            publishedEvent.Should().BeNull();
-        }
+        // Assert
+        publishedEvent.Should().BeNull();
+    }
 
-        [Fact]
-        public void SubscribeToNonEvent_ThrowsArgumentException()
-        {
-            // Arrange
-            var publisher = new EventPublisher();
+    [Fact]
+    public void SubscribeToNonEvent_ThrowsArgumentException()
+    {
+        // Arrange
+        var publisher = new MemoryEventPublisher();
 
-            // Act
-            Action subscribeAction = () => publisher.Subscribe(typeof(string), (Event @event) => { });
+        // Act
+        Action subscribeAction = () => publisher.Subscribe(typeof(string), (Event @event) => { });
 
-            // Assert
-            subscribeAction.Should().Throw<ArgumentException>();
-        }
+        // Assert
+        subscribeAction.Should().Throw<ArgumentException>();
+    }
 
-        [Fact]
-        public void PublishNull_ThrowsArgumentNullException()
-        {
-            // Arrange
-            var publisher = new EventPublisher();
+    [Fact]
+    public void PublishNull_ThrowsArgumentNullException()
+    {
+        // Arrange
+        var publisher = new MemoryEventPublisher();
 
-            // Act
-            Action publishNullAction = () => publisher.Publish(null);
+        // Act
+        Func<Task> publishNullAction = async () => await publisher.PublishAsync(null);
 
-            // Assert
-            publishNullAction.Should().Throw<ArgumentNullException>();
-        }
+        // Assert
+        publishNullAction.Should().ThrowAsync<ArgumentNullException>();
     }
 }
